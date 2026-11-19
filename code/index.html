@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheSuperEevee — Code</title>
+
+    <meta
+      name="description"
+      content="Explore code, libraries, and experiments by TheSuperEevee."
+    />
+
+    <meta name="theme-color" content="#111217" />
+
+    <script>
+      (() => {
+        const saved = localStorage.getItem("thesupereevee-theme");
+
+        document.documentElement.dataset.theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+      })();
+    </script>
+
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/pages.css" />
+
+    <script defer src="../js/config.js"></script>
+    <script defer src="../js/components.js"></script>
+    <script defer src="../js/theme.js"></script>
+  </head>
+
+  <body>
+    <div id="site-header"></div>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>Code</h2>
+              <p class="section-description">
+                Libraries, utilities, and programming experiments.
+              </p>
+            </div>
+          </div>
+
+          <div id="code-list" class="code-grid">
+            <p class="empty-state">Loading code...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script>
+      async function initializeCodePage() {
+        // Load shared components.
+        await loadComponents();
+
+        // Load projects data and render as code listings.
+        const response = await fetch(siteUrl("data/projects.json"));
+
+        if (!response.ok) {
+          document.getElementById("code-list").innerHTML =
+            "<p class='load-error'>Unable to load code data.</p>";
+          return;
+        }
+
+        const data = await response.json();
+        renderCode(data.projects);
+      }
+
+      function renderCode(projects) {
+        const container = document.getElementById("code-list");
+
+        if (!projects || projects.length === 0) {
+          container.innerHTML =
+            "<p class='empty-state'>No code projects available yet.</p>";
+          return;
+        }
+
+        container.replaceChildren();
+
+        // Filter to show libraries, utilities, and experiments (not applications)
+        const codeProjects = projects.filter(
+          (p) =>
+            p.id !== "eevee-launcher" &&
+            p.id !== "mod-manager" &&
+            p.id !== "oplo-decompiler" &&
+            p.category !== "Application" ||
+            ["config-manager", "oplo-website"].includes(p.id)
+        );
+
+        if (codeProjects.length === 0) {
+          container.innerHTML =
+            "<p class='empty-state'>No code projects available yet.</p>";
+          return;
+        }
+
+        codeProjects.forEach((project) => {
+          const card = document.createElement("article");
+          card.className = "code-card";
+
+          card.innerHTML = `
+            <div class="code-card-header">
+              <span class="code-icon">${project.icon || "📦"}</span>
+              <span class="code-category">${project.category || "Code"}</span>
+            </div>
+
+            <div class="code-card-content">
+              <h3 class="code-card-title">${project.name}</h3>
+              <p class="code-card-description">${project.description}</p>
+
+              ${Array.isArray(project.technologies)
+                ? project.technologies
+                    .slice(0, 3)
+                    .map((tech) => `<span class="technology-tag">${tech}</span>`)
+                    .join("")
+                : ""}
+            </div>
+
+            <div class="code-card-footer">
+              ${project.github
+                ? `<a
+                    href="${project.github}"
+                    class="button button-secondary code-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View on GitHub
+                  </a>`
+                : ""}
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+
+        // Initialize Lucide icons after cards are created
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", initializeCodePage);
+    </script>
+  </body>
+</html>

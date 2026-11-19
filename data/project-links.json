@@ -1,0 +1,53 @@
+{
+  "links": {
+    "github": {
+      "name": "GitHub",
+      "icon": "github",
+      "iconLibrary": "simpleicons",
+      "type": "primary",
+      "target": "_blank"
+    },
+    "website": {
+      "name": "Website",
+      "icon": "globe",
+      "iconLibrary": "lucide",
+      "type": "secondary",
+      "target": "_blank"
+    },
+    "documentation": {
+      "name": "Documentation",
+      "icon": "book-open",
+      "iconLibrary": "lucide",
+      "type": "secondary",
+      "target": "_blank"
+    },
+    "download": {
+      "name": "Download",
+      "icon": "download",
+      "iconLibrary": "lucide",
+      "type": "primary",
+      "target": "_blank"
+    },
+    "modrinth": {
+      "name": "Modrinth",
+      "icon": "modrinth",
+      "iconLibrary": "simpleicons",
+      "type": "secondary",
+      "target": "_blank"
+    },
+    "curseforge": {
+      "name": "CurseForge",
+      "icon": "curseforge",
+      "iconLibrary": "simpleicons",
+      "type": "secondary",
+      "target": "_blank"
+    },
+    "discord": {
+      "name": "Discord",
+      "icon": "discord",
+      "iconLibrary": "simpleicons",
+      "type": "secondary",
+      "target": "_blank"
+    }
+  }
+}

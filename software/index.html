@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheSuperEevee — Software</title>
+
+    <meta
+      name="description"
+      content="Explore software and applications by TheSuperEevee."
+    />
+
+    <meta name="theme-color" content="#111217" />
+
+    <script>
+      (() => {
+        const saved = localStorage.getItem("thesupereevee-theme");
+
+        document.documentElement.dataset.theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+      })();
+    </script>
+
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/pages.css" />
+
+    <script defer src="../js/config.js"></script>
+    <script defer src="../js/components.js"></script>
+    <script defer src="../js/theme.js"></script>
+  </head>
+
+  <body>
+    <div id="site-header"></div>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>Software</h2>
+              <p class="section-description">
+                Applications and tools I've built.
+              </p>
+            </div>
+          </div>
+
+          <div id="software-list" class="software-grid">
+            <p class="empty-state">Loading software...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script>
+      async function initializeSoftwarePage() {
+        // Load shared components.
+        await loadComponents();
+
+        // Load software data and render.
+        const response = await fetch(siteUrl("data/software.json"));
+
+        if (!response.ok) {
+          document.getElementById("software-list").innerHTML =
+            "<p class='load-error'>Unable to load software data.</p>";
+          return;
+        }
+
+        const data = await response.json();
+        renderSoftware(data.software);
+      }
+
+      function renderSoftware(software) {
+        const container = document.getElementById("software-list");
+
+        if (!software || software.length === 0) {
+          container.innerHTML =
+            "<p class='empty-state'>No software available yet.</p>";
+          return;
+        }
+
+        container.replaceChildren();
+
+        software.forEach((item) => {
+          const statusClass =
+            "status-" + (item.status || "unknown").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+          const platformsHTML =
+            item.platforms && item.platforms.length > 0
+              ? `<div class="software-platforms">
+                  ${item.platforms
+                    .map(
+                      (platform) =>
+                        `<span class="software-platform-tag">${platform}</span>`
+                    )
+                    .join("")}
+                </div>`
+              : "";
+
+          const versionHTML = item.version
+            ? `<div class="software-version">v${item.version}</div>`
+            : "";
+
+          const techHTML = Array.isArray(item.technologies) && item.technologies.length > 0
+            ? `<div class="software-tech-tags">
+                ${item.technologies
+                  .map(
+                    (tech) =>
+                      `<span class="software-tech-tag">${tech}</span>`
+                  )
+                  .join("")}
+              </div>`
+            : "";
+
+          const linkHTML = item.links
+            ? Object.entries(item.links)
+                .map(
+                  ([key, url]) => {
+                    const linkDef = item.links[key];
+                    const isPrimary = linkDef && linkDef.type === "primary";
+                    return `<a href="${url}" class="button ${
+                      isPrimary ? "button-primary" : "button-secondary"
+                    }" target="_blank" rel="noopener noreferrer">
+                      ${linkDef?.name || key}
+                    </a>`;
+                  },
+                )
+                .join("")
+            : "";
+
+          const card = document.createElement("article");
+          card.className = "software-card";
+
+          card.innerHTML = `
+            <div class="software-card-header">
+              <span class="software-icon">${item.icon || "📦"}</span>
+              <span class="software-status ${statusClass}">${item.status || "Unknown"}</span>
+            </div>
+
+            <div class="software-card-content">
+              <h3 class="software-card-title">${item.name}</h3>
+              <p class="software-card-description">${item.description}</p>
+
+              ${versionHTML}
+
+              ${techHTML}
+            </div>
+
+            ${platformsHTML}
+
+            <div class="software-card-footer">
+              ${linkHTML}
+            </div>
+          `;
+
+          // Add hover effect via inline class
+          card.classList.add("software-card-interactive");
+
+          container.appendChild(card);
+        });
+
+        // Initialize Lucide icons after cards are created
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", initializeSoftwarePage);
+    </script>
+  </body>
+</html>

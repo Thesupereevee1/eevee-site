@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Projects | TheSuperEevee</title>
+    <meta
+      name="description"
+      content="Explore projects, software, and experiments by TheSuperEevee."
+    />
+
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <script src="../js/config.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/projects-page.js" defer></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+
+  <body>
+    <div id="site-header"></div>
+
+    <main class="page-container projects-page">
+      <section class="page-heading">
+        <div>
+          <span class="eyebrow">DEVELOPMENT</span>
+          <h1>Projects</h1>
+          <p>
+            Explore the software, tools, experiments, and other things I've been
+            working on.
+          </p>
+        </div>
+      </section>
+
+      <section class="projects-toolbar">
+        <div class="projects-search">
+          <i data-lucide="search"></i>
+          <input
+            type="search"
+            id="project-search"
+            placeholder="Search projects..."
+            autocomplete="off"
+          />
+        </div>
+
+        <select id="project-category">
+          <option value="all">All categories</option>
+        </select>
+
+        <select id="project-status">
+          <option value="all">All statuses</option>
+        </select>
+      </section>
+
+      <section class="projects-results">
+        <div class="projects-results-header">
+          <h2>All Projects</h2>
+          <span id="project-count">Loading projects...</span>
+        </div>
+
+        <div id="projects-grid" class="projects-grid">
+          <div class="projects-loading">Loading projects...</div>
+        </div>
+
+        <div id="projects-empty" class="projects-empty" hidden>
+          <i data-lucide="search-x"></i>
+          <h3>No projects found</h3>
+          <p>Try changing your search or filters.</p>
+          <button id="clear-project-filters" class="button secondary">
+            Clear filters
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+  </body>
+</html>

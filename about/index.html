@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheSuperEevee — About</title>
+
+    <meta
+      name="description"
+      content="Learn about TheSuperEevee developer and their work."
+    />
+
+    <meta name="theme-color" content="#111217" />
+
+    <script>
+      (() => {
+        const saved = localStorage.getItem("thesupereevee-theme");
+
+        document.documentElement.dataset.theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+      })();
+    </script>
+
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/pages.css" />
+
+    <script defer src="../js/config.js"></script>
+    <script defer src="../js/components.js"></script>
+    <script defer src="../js/theme.js"></script>
+  </head>
+
+  <body>
+    <div id="site-header"></div>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>About</h2>
+              <p class="section-description">
+                Get to know the developer behind TheSuperEevee.
+              </p>
+            </div>
+          </div>
+
+          <div id="about-content" class="about-content">
+            <!-- Content loaded by JavaScript -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script>
+      async function initializeAboutPage() {
+        // Load shared components.
+        await loadComponents();
+
+        // About content - developer profile.
+        const aboutHtml = `
+          <div class="about-profile">
+            <div class="about-avatar">
+              <span class="avatar-icon">🛠️</span>
+            </div>
+            <div class="about-details">
+              <h3 class="about-name">TheSuperEevee</h3>
+              <p class="about-tagline">Independent Developer</p>
+            </div>
+          </div>
+
+          <div class="about-section">
+            <h3>What I do</h3>
+            <p>
+              I build software, open-source projects, and experiments. My work
+              ranges from developer tools and utilities to web applications and
+              games. I love solving problems and creating tools that help others.
+            </p>
+          </div>
+
+          <div class="about-section">
+            <h3>Technologies</h3>
+            <div class="about-technologies">
+              <span>HTML & CSS</span>
+              <span>JavaScript & TypeScript</span>
+              <span>Rust & Tauri</span>
+              <span>Python</span>
+              <span>C++</span>
+            </div>
+          </div>
+
+          <div class="about-section">
+            <h3>Get in touch</h3>
+            <div class="about-contact">
+              <a
+                href="https://github.com/Thesupereevee1"
+                class="contact-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://github.com/Thesupereevee1"
+                class="contact-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Projects
+              </a>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("about-content").innerHTML = aboutHtml;
+
+        // Initialize Lucide icons after content is inserted
+        if (window.lucide) {
+          setTimeout(() => {
+            lucide.createIcons();
+          }, 100);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", initializeAboutPage);
+    </script>
+  </body>
+</html>

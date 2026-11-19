@@ -1,0 +1,89 @@
+{
+  "software": [
+    {
+      "id": "oplojdecom",
+      "name": "OploJDecom",
+      "description": "A fast, lightweight Java decompiler powered by Vineflower.",
+      "version": null,
+      "category": "Developer Tool",
+      "status": "Active",
+      "icon": "⚙️",
+      "technologies": ["Python", "Java"],
+      "platforms": [],
+      "links": {
+        "github": "https://github.com/OploLabs/OploJDecom"
+      }
+    },
+    {
+      "id": "oplojdiff",
+      "name": "OploJDiff",
+      "description": "A Java JAR comparison tool featuring source comparisons, API changes, dependency analysis, and side-by-side diffs.",
+      "version": null,
+      "category": "Developer Tool",
+      "status": "Active",
+      "icon": "🔍",
+      "technologies": ["Python"],
+      "platforms": [],
+      "links": {
+        "github": "https://github.com/OploLabs/OploJDiff"
+      }
+    },
+    {
+      "id": "towelwrap",
+      "name": "TowelWrap",
+      "description": "A customizable two-player strategy game inspired by the classic towel game.",
+      "version": null,
+      "category": "Game",
+      "status": "Active",
+      "icon": "🎮",
+      "technologies": ["HTML"],
+      "platforms": ["Web"],
+      "links": {
+        "github": "https://github.com/OploLabs/TowelWrap"
+      }
+    },
+    {
+      "id": "oplolabs-website",
+      "name": "OploLabs Website",
+      "description": "The official OploLabs website and hub for its open-source projects.",
+      "version": null,
+      "category": "Website",
+      "status": "Active",
+      "icon": "🌐",
+      "technologies": ["HTML"],
+      "platforms": ["Web"],
+      "links": {
+        "github": "https://github.com/OploLabs/OploLabs.github.io",
+        "website": "https://oplolabs.github.io"
+      }
+    },
+    {
+      "id": "acs-webapps",
+      "name": "ACS Web Apps",
+      "description": "A collection of ad-less web projects.",
+      "version": null,
+      "category": "Web Application",
+      "status": "Active",
+      "icon": "💻",
+      "technologies": ["HTML"],
+      "platforms": ["Web"],
+      "links": {
+        "github": "https://github.com/atlantachristianstudents/acswebapps"
+      }
+    },
+    {
+      "id": "immortality-mc-mod",
+      "name": "Immortality MC Mod",
+      "description": "A Minecraft modification developed in Java.",
+      "version": null,
+      "category": "Minecraft Mod",
+      "status": "Active",
+      "icon": "⛏️",
+      "technologies": ["Java"],
+      "platforms": ["Minecraft"],
+      "links": {
+        "github": "https://github.com/thesupereevee1/immortality-mc-mod"
+      }
+    }
+  ]
+}

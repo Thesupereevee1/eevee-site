@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <title>Documentation — TheSuperEevee</title>
+
+    <meta name="description" content="Official TheSuperEevee documentation." />
+    <meta name="theme-color" content="#111217" />
+
+    <script>
+      (() => {
+        const saved = localStorage.getItem("thesupereevee-theme");
+
+        document.documentElement.dataset.theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+      })();
+    </script>
+
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/vue.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css"
+      id="docsify-dark-theme"
+      disabled
+    />
+
+    <link rel="stylesheet" href="../docs/custom.css" />
+  </head>
+
+  <body class="docs-page">
+    <div id="site-header"></div>
+
+    <div id="app"></div>
+
+    <div id="site-footer"></div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/theme.js"></script>
+
+    <script>
+      loadComponents();
+    </script>
+
+    <script>
+      window.$docsify = {
+        name: "TheSuperEevee",
+        homepage: "README.md",
+        loadSidebar: true,
+        subMaxLevel: 3,
+        auto2top: true,
+        relativePath: true,
+      };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/docsify@5"></script>
+
+    <script>
+      function updateDocsifyTheme() {
+        const dark = document.documentElement.dataset.theme === "dark";
+        document.getElementById("docsify-dark-theme").disabled = !dark;
+      }
+
+      updateDocsifyTheme();
+
+      const themeObserver = new MutationObserver(updateDocsifyTheme);
+
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+      function syncFooter() {
+        const footer = document.getElementById("site-footer");
+        const sidebar = document.querySelector(".sidebar");
+
+        if (!footer || !sidebar) return;
+
+        const isOpen = sidebar.classList.contains("show");
+
+        footer.classList.toggle("sidebar-open", isOpen);
+      }
+
+      const footerObserver = new MutationObserver(syncFooter);
+
+      function initializeFooterObserver() {
+        const sidebar = document.querySelector(".sidebar");
+
+        if (!sidebar) return false;
+
+        footerObserver.observe(sidebar, {
+          attributes: true,
+          attributeFilter: ["class"],
+        });
+
+        syncFooter();
+
+        return true;
+      }
+
+      const docsifyObserver = new MutationObserver(() => {
+        initializeFooterObserver();
+      });
+
+      docsifyObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+
+      initializeFooterObserver();
+    </script>
+  </body>
+</html>
