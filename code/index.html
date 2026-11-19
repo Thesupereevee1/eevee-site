@@ -106,6 +106,10 @@
           const card = document.createElement("article");
           card.className = "code-card";
 
+          // Determine the project ID to link to
+          const projectId = project.id;
+          const projectUrl = siteUrl(`projects/project.html?id=${projectId}`);
+
           card.innerHTML = `
             <div class="code-card-header">
               <span class="code-icon">${project.icon || "📦"}</span>
@@ -125,6 +129,9 @@
             </div>
 
             <div class="code-card-footer">
+              <a href="${projectUrl}" class="button button-secondary" target="_self" rel="noopener noreferrer">
+                View project
+              </a>
               ${project.github
                 ? `<a
                     href="${project.github}"

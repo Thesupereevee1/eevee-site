@@ -90,6 +90,10 @@
           const statusClass =
             "status-" + (item.status || "unknown").toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
+          // Determine the project ID to link to (matches projects.json id field)
+          const projectId = item.id || item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+          const projectUrl = siteUrl(`projects/project.html?id=${projectId}`);
+
           const platformsHTML =
             item.platforms && item.platforms.length > 0
               ? `<div class="software-platforms">
@@ -114,7 +118,7 @@
                       `<span class="software-tech-tag">${tech}</span>`
                   )
                   .join("")}
-              </div>`
+                </div>`
             : "";
 
           const linkHTML = item.links
@@ -126,8 +130,7 @@
                     return `<a href="${url}" class="button ${
                       isPrimary ? "button-primary" : "button-secondary"
                     }" target="_blank" rel="noopener noreferrer">
-                      ${linkDef?.name || key}
-                    </a>`;
+                      ${linkDef?.name || key}</a>`;
                   },
                 )
                 .join("")
@@ -155,11 +158,11 @@
 
             <div class="software-card-footer">
               ${linkHTML}
+              <a href="${projectUrl}" class="button button-secondary" target="_self" rel="noopener noreferrer">
+                View project
+              </a>
             </div>
           `;
-
-          // Add hover effect via inline class
-          card.classList.add("software-card-interactive");
 
           container.appendChild(card);
         });
